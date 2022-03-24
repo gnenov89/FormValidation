@@ -47,7 +47,21 @@ function checkRequired(inputArr) {
     }
   });
 }
-
+// Check length 
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(input, `${getFieldName(input)} must be at least ${min} characters`)
+  } else if (input.value.length > max) {
+    showError(input, `${getFieldName(input)} should not be longer than ${max} characters`)
+  } else {
+    showSuccess(input)
+  }
+}
+function checkPasswordMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, 'Passwords must match');
+  }
+}
 
 // Event listeners
 form.addEventListener('submit', function (e) {
@@ -56,5 +70,8 @@ form.addEventListener('submit', function (e) {
 
 
   checkRequired([username, email, password, password2]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
+  checkPasswordMatch(password, password2)
 });
 
